@@ -77,8 +77,10 @@ namespace Semestralni_Projekt
             do
             {
                 Console.Clear();
+                Console.WriteLine("Pokladna - Markovat");
+                Console.WriteLine("------------------------");
                 Console.WriteLine("ID  Název");
-                zboziList.ForEach(z => Console.WriteLine($"{z.ID,-3} {z.nazev}"));
+                zboziList.ForEach(z => Console.WriteLine($"{z.ID,-3} {z.nazev}"));//výpis ID a názvu produktů pro snadnější orientaci při markování
 
                 Console.WriteLine("------------------------");
                 Console.WriteLine("Celková cena:" + celkovaCena + " Kč");
@@ -87,7 +89,7 @@ namespace Semestralni_Projekt
                 while (!int.TryParse(Console.ReadLine(), out kod) || !zboziList.Any(z => z.ID == kod))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Zadané ID musí být číslo a musí být v seznamu!");
+                    Console.WriteLine("Zadané ID musí být v seznamu!");
                     Console.ResetColor();
                     Console.Write("Zkuste to znovu: ");
 
@@ -182,8 +184,8 @@ namespace Semestralni_Projekt
                 Console.WriteLine("Vymazat produkt [u]");
                 Console.WriteLine("Vypsat produkty [v]");
                 Console.WriteLine("Vymazat produkty [w]");
-                Console.WriteLine("Ulozit do souboru [b]");
-                Console.WriteLine("Nacist ze souboru [n]");
+                Console.WriteLine("Uložit do souboru [b]");
+                Console.WriteLine("Načíst ze souboru [n]");
                 Console.WriteLine("Markovat [m]");
                 Console.WriteLine("Konec [k]");
                 Console.Write("Zadejte akci: ");
@@ -192,12 +194,12 @@ namespace Semestralni_Projekt
                 {
                     case 'p':
                         Console.Clear();
+                        Console.WriteLine("Pokladna - Přidat produkt");
+                        Console.WriteLine("------------------------");
                         Pridat(zboziList);
                         break;
                     case 'm':
                         Console.Clear();
-                        Console.WriteLine("Pokladna - Markovat");
-                        Console.WriteLine("------------------------");
                         if (zboziList.Count == 0)
                         {
                             Console.WriteLine("Seznam produktů je prázdný. Nejprve přidejte produkty.");
@@ -211,6 +213,7 @@ namespace Semestralni_Projekt
                     case 'u':
                         Console.Clear();
                         Console.WriteLine("Pokladna - Vymazat produkt");
+                        Console.WriteLine("------------------------");
                         VymazatProdukt(zboziList);
                         Console.ReadKey();
                         break;
