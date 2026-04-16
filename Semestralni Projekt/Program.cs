@@ -98,10 +98,10 @@ namespace Semestralni_Projekt
                 Zbozi hledane = zboziList.Find(z => z.ID == kod);
 
                 Console.Write("Zadejte množství: ");
-                while (!int.TryParse(Console.ReadLine(), out mnozstvi))
+                while (!int.TryParse(Console.ReadLine(), out mnozstvi)|| mnozstvi < 0)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Zadané množství musí být celé číslo!");
+                    Console.WriteLine("Zadané množství musí být celé kladné číslo!");
                     Console.ResetColor();
                     Console.Write("Zkuste to znovu: ");
                 }
@@ -142,9 +142,9 @@ namespace Semestralni_Projekt
             Zbozi produkt = new Zbozi();
             Console.Write("Zadejte název zboží: ");
             nazev = Console.ReadLine();
-            while (nazev.Length < 2)
+            while (nazev.Length < 3)
             {
-                Console.Write("Zadejte platný název: ");
+                Console.Write("Zadejte platný název (minimálně 3 znaky): ");
                 nazev = Console.ReadLine();
             }
             produkt.nazev = nazev;
