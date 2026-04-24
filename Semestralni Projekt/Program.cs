@@ -7,8 +7,8 @@ namespace Semestralni_Projekt
 {
     internal class Program
     {
-        //třída pro reprezentaci zboží, obsahuje název, cenu, ID a počet kusů
-        class Zbozi
+        //třída pro reprezentaci produktu, obsahuje název, cenu, ID a počet kusů
+        class Produkt
         {
             public string nazev;
             public double cena;
@@ -16,9 +16,9 @@ namespace Semestralni_Projekt
             public int pocet;
         }
         //funkce pro uložení seznamu produktů do souboru
-        static void Ulozit(List<Zbozi> zboziList)
+        static void Ulozit(List<Produkt> zboziList)
         {
-            using (StreamWriter sw = new StreamWriter(@"soubor.csv"))
+            using (StreamWriter sw = new StreamWriter("soubor.csv"))
             {
                 foreach (var z in zboziList)
                 {
@@ -28,7 +28,7 @@ namespace Semestralni_Projekt
             }
         }
         //funkce pro načtení seznamu produktů ze souboru
-        static void Nacist(List<Zbozi> zboziList)
+        static void Nacist(List<Produkt> zboziList)
         {
             if (File.Exists("soubor.csv"))
             {
@@ -41,7 +41,7 @@ namespace Semestralni_Projekt
                     {
                         radek = sr.ReadLine();
                         pole = radek.Split(';');
-                        zboziList.Add(new Zbozi { ID = int.Parse(pole[0]), nazev = pole[1], cena = double.Parse(pole[2]) });
+                        zboziList.Add(new Produkt { ID = int.Parse(pole[0]), nazev = pole[1], cena = double.Parse(pole[2]) });
                     }
 
                 }
@@ -54,7 +54,7 @@ namespace Semestralni_Projekt
 
         }
         //funkce pro smazání produktu ze seznamu podle zadaného ID
-        static void VymazatProdukt(List<Zbozi> zboziList)
+        static void VymazatProdukt(List<Produkt> zboziList)
         {
             int idSmazat;
             zboziList.ForEach(z => Console.WriteLine(z.ID + "   " + z.nazev));//výpis ID a názvu produktů pro snadnější orientaci při mazání
@@ -69,7 +69,7 @@ namespace Semestralni_Projekt
             Console.WriteLine($"Produkt s ID {idSmazat} byl úspěšně odstraněn.");
         }
         //funkce pro markování zboží, výpočet celkové ceny a výpis účtenky
-        static void Markovat(List<Zbozi> zboziList)
+        static void Markovat(List<Produkt> zboziList)
         {
             int kod, mnozstvi;
             double celkovaCena = 0;
@@ -95,10 +95,10 @@ namespace Semestralni_Projekt
 
                 }
                 //hledáme zboží podle zadaného ID
-                Zbozi hledane = zboziList.Find(z => z.ID == kod);
+                Produkt hledane = zboziList.Find(z => z.ID == kod);
 
                 Console.Write("Zadejte množství: ");
-                while (!int.TryParse(Console.ReadLine(), out mnozstvi)|| mnozstvi < 0)
+                while (!int.TryParse(Console.ReadLine(), out mnozstvi) || mnozstvi < 0)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Zadané množství musí být celé kladné číslo!");
@@ -135,11 +135,11 @@ namespace Semestralni_Projekt
 
         }
         //Funkce pro přidání produktu do seznamu
-        static void Pridat(List<Zbozi> zboziList)
+        static void Pridat(List<Produkt> zboziList)
         {
             string nazev;
             int zadaneID;
-            Zbozi produkt = new Zbozi();
+            Produkt produkt = new Produkt();
             Console.Write("Zadejte název zboží: ");
             nazev = Console.ReadLine();
             while (nazev.Length < 3)
@@ -170,7 +170,7 @@ namespace Semestralni_Projekt
         static void Main(string[] args)
         {
             //seznam produktů
-            List<Zbozi> zboziList = new List<Zbozi>();
+            List<Produkt> zboziList = new List<Produkt>();
 
             char odpoved;
 
@@ -227,9 +227,9 @@ namespace Semestralni_Projekt
                         Console.Clear();
                         Console.WriteLine("Pokladna - Seznam produktů ");
                         Console.WriteLine("------------------------");
-                        foreach (var zbozi in zboziList)
+                        foreach (var produkt in zboziList)
                         {
-                            Console.WriteLine($"ID: {zbozi.ID}, Název: {zbozi.nazev}, Cena: {zbozi.cena} Kč");
+                            Console.WriteLine($"ID: {produkt.ID}, Název: {produkt.nazev}, Cena: {produkt.cena} Kč");
                         }
                         Console.ReadKey();
                         break;
